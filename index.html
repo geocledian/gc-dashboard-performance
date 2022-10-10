@@ -132,7 +132,7 @@
               <!-- margin bottom because of tighter timeslider -->
               <div id="leftColumn" class="split" style="padding-bottom: 0em; padding: 0.5em; margin-right: 0.2em; margin-bottom: 0em;" v-show="leftColumnShow">
                 
-                <div style="padding-bottom: 2em;">
+                <div style="padding-bottom: 1em;">
                   <gc-chart 
                       gc-widget-id="chart1" 
                       :gc-apikey="$root.gcApikey" 
@@ -171,16 +171,16 @@
                   <div class="column">
                     <div style="margin-left: 1em; margin-right: 1em;">
                     <gc-netarea
-                    gc-widget-id="netarea1" 
-                    :gc-apikey="$root.gcApikey" 
-                    :gc-api-base-url="$root.gcApiBaseUrl" 
-                    :gc-host="$root.gcHost"
-                    :gc-selected-date="$root.queryDate"
-                    :gc-parcel-id="$root.selectedParcelId" 
-                    gc-legend-position="bottom"
-                    :gc-white-label="true"
-                    :gc-language="$root.language"
-                    gc-mode="gauge"
+                      gc-widget-id="netarea1" 
+                      :gc-apikey="$root.gcApikey" 
+                      :gc-api-base-url="$root.gcApiBaseUrl" 
+                      :gc-host="$root.gcHost"
+                      :gc-selected-date="$root.queryDate"
+                      :gc-parcel-id="$root.selectedParcelId" 
+                      gc-legend-position="bottom"
+                      :gc-white-label="true"
+                      :gc-language="$root.language"
+                      gc-mode="gauge"
                      />
                     </div>
                     <div style="margin-left: 1em; margin-right: 1em;">
@@ -217,28 +217,30 @@
                         :gc-white-label="true"
                         :gc-language="$root.language"
                         gc-available-options="title,description"
-                        :gc-selected-date-stats="$root.queryDateStats">
+                        :gc-crop="$root.crop"
+                        :gc-entity="$root.entity"
+                        >
                       </gc-performance>
                     </div> 
-                    <div style="margin-left: 1em; margin-right: 1em;">
-                    <gc-similarity
-                      gc-widget-id="similarity1" 
-                      :gc-apikey="$root.gcApikey" 
-                      :gc-api-base-url="$root.gcApiBaseUrl" 
-                      :gc-host="$root.gcHost"
-                      :gc-selected-parcel-id="$root.selectedParcelId" 
-                      :gc-startdate="$root.simStartdate"
-                      :gc-enddate="$root.simEnddate"
-                      :gc-references="$root.simReferences"
-                      :gc-radius="$root.simRadius"
-                      :gc-interval="$root.simInterval"
-                      :gc-crop="$root.simCrop"
-                      :gc-entity="$root.simEntity"
-                      :gc-verification="$root.simVerification"
-                      :gc-language="$root.language"
-                      gc-layout="vertical"
-                    />
-                  </div>
+                    <div style="margin-left: 1em; margin-right: 1em; padding-top: 1em;">
+                      <gc-similarity
+                        gc-widget-id="similarity1" 
+                        :gc-apikey="$root.gcApikey" 
+                        :gc-api-base-url="$root.gcApiBaseUrl" 
+                        :gc-host="$root.gcHost"
+                        :gc-selected-parcel-id="$root.selectedParcelId" 
+                        :gc-startdate="$root.simStartdate"
+                        :gc-enddate="$root.simEnddate"
+                        :gc-references="$root.simReferences"
+                        :gc-radius="$root.simRadius"
+                        :gc-interval="$root.simInterval"
+                        :gc-crop="$root.crop"
+                        :gc-entity="$root.entity"
+                        :gc-verification="$root.simVerification"
+                        :gc-language="$root.language"
+                        gc-layout="vertical"
+                      />
+                    </div>
                   <div style="margin-left: 1em; margin-right: 1em;">
                     <gc-phenology
                       gc-widget-id="phenology1" 
