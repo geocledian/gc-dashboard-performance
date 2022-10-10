@@ -289,7 +289,16 @@ function initComponent() {
         },
         crop: {
           get() {
-            return this.getQueryVariable(this.filterString, "crop")
+            let result = this.getQueryVariable(this.filterString, "crop");
+            try {
+              if (!result) {
+                result = (this.parcels.filter(p => p.parcel_id == this.selectedParcelId)[0]).crop;
+              }
+              return result;
+            } catch (ex) {
+              return "";
+            }
+
           },
           set(value) {
             // this.filterString = this.filterString.replace("crop=", "crop="+value);
@@ -297,7 +306,15 @@ function initComponent() {
         },
         entity: {
           get() {
-            return this.getQueryVariable(this.filterString, "entity")
+            let result = this.getQueryVariable(this.filterString, "entity");
+            try {
+              if (!result) {
+                result = (this.parcels.filter(p => p.parcel_id == this.selectedParcelId)[0]).entity;
+              }
+              return result;
+            } catch (ex) {
+              return "";
+            }
           },
           set(value) {
             // this.filterString = this.filterString.replace("entity=", "entity="+value);
