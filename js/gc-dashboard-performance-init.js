@@ -34,7 +34,7 @@ const libs = ['https://unpkg.com/vue@2.6.14/dist/vue.min.js',
               '../gc-styles/bulma/0.6.2/bulma-ext/bulma-calendar/v1/bulma-calendar.min.js',
               '../gc-chart/js/d3.v6.min.js', // v6.7.0
               '../gc-chart/js/billboard.min.js', // v3.1.5
-              '../gc-chart/js/gc-chart.min.js',
+              '../gc-chart/js/gc-chart.js',
               '../gc-map/js/gc-map.min.js',
               '../gc-phenology-control/js/gc-phenology-control.min.js',
               '../gc-filter/js/gc-filter.min.js',
@@ -149,25 +149,23 @@ function initComponent() {
         limit: 250,
         offset: 0,
         language: "en",
-        // cropstatusCollapsed: true, //unused currently
         currentTimeseries: [],
         chartMode: "one-index", //"many-indices"
-        // full chart zoom or full map zoom
-        chartActive: false,
-        chart2Active: false,
         // visibility of tab components
         analyticsActive: true,
         containerSplitSize: [50,50],
         leftColumnShow: true,
         rightColumnShow: true,
         split: null,
+        phStartdate: '',
+        phEnddate: '',
         simStartdate: '',
         simEnddate: '',
         simRadius: 100000,
         simReferences: 20,
         simInterval: 10,
-        simEntity: "",
-        simCrop: "",
+        // entity: "",
+        // crop: "",
         simVerification: false,
       },
       i18n: i18n,
@@ -221,8 +219,8 @@ function initComponent() {
         this.$on('resetSimilarity', this.resetSimilarity);
         this.$on('simStartdateChange', this.simStartdateChange);
         this.$on('simEnddateChange', this.simEnddateChange);
-        this.$on('simCropChange', this.simCropChange);
-        this.$on('simEntityChange', this.simEntityChange);
+        this.$on('cropChange', this.cropChange);
+        this.$on('entityChange', this.entityChange);
         this.$on('simReferencesChange', this.simReferencesChange);
         this.$on('simIntervalChange', this.simIntervalChange);
         this.$on('simRadiusChange', this.simRadiusChange);
@@ -288,6 +286,22 @@ function initComponent() {
           get() {
             return "/agknow/api/v4"
           }
+        },
+        crop: {
+          get() {
+            return this.getQueryVariable(this.filterString, "crop")
+          },
+          set(value) {
+            // this.filterString = this.filterString.replace("crop=", "crop="+value);
+          }
+        },
+        entity: {
+          get() {
+            return this.getQueryVariable(this.filterString, "entity")
+          },
+          set(value) {
+            // this.filterString = this.filterString.replace("entity=", "entity="+value);
+          }
         }
       },
       methods: {
@@ -334,11 +348,11 @@ function initComponent() {
           if (queryDateStats != this.queryDateStats)
             this.queryDateStats = queryDateStats;
         },
-        phStartdateChange: function (phStartdate) {
-          this.phStartdate = phStartdate;
+        phStartdateChange: function (value) {
+          this.phStartdate = value;
         },
-        phEnddateChange: function (phEnddate) {
-          this.phEnddate = phEnddate;
+        phEnddateChange: function (value) {
+          this.phEnddate = value;
         },
         timeseriesChange: function (value) {
           this.currentTimeseries = value;
@@ -352,11 +366,11 @@ function initComponent() {
         simEnddateChange: function (value) {
           this.simEnddate = value;
         },
-        simCropChange: function (value) {
-          this.simCrop = value;
+        cropChange: function (value) {
+          this.crop = value;
         },
-        simEntityChange: function (value) {
-          this.simEntity = value;
+        entityChange: function (value) {
+          this.entity = value;
         },
         simIntervalChange: function (value) {
           this.simInterval = value;
